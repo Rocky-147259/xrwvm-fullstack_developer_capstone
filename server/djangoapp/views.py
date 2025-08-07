@@ -14,7 +14,7 @@ import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
-
+from .models import CarMake, CarModel
 
 
 # Get an instance of a logger
@@ -67,6 +67,16 @@ def registration(request):
         return JsonResponse({"userName": username, "status": True})
     
     return JsonResponse({"error": "Invalid request method"})
+
+def get_cars(request):
+    count = CarMake.objects.count()
+    print("CarMake count:", count)
+    if count == 0:
+        initiate()
+
+    car_models = CarModel.objects.select_related('car_make')
+    cars = [{"CarModel": cm.name, "CarMake": cm.car_make.name} for cm in car_models]
+    return JsonResponse({"CarModels": cars})
 
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
