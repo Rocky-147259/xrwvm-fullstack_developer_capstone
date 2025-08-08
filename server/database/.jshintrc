@@ -1,7 +1,7 @@
 {
   "esversion": 8,
-  "asi": true,              // Allow missing semicolons
+  "asi": true,
   "quotmark": "single",
-  "sub": true,              // Allow ['key'] instead of dot notation
-  "node": true              // If using Node.js
+  "sub": true,
+  "node": true
 }
