@@ -50,5 +50,5 @@ jobs:
       - name: Run JSHint
         run: |
           # Run JSHint only in target folders
-          find ./server/database -name "*.js" -exec jshint {} +
+          find ./server/database -name "*.js" -exec jshint --esversion=6 {} +
           echo "JavaScript linting complete"
