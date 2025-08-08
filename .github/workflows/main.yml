@@ -45,7 +45,7 @@ jobs:
           node-version: 14
 
       - name: Install JSHint
-        run: npm install -g jshint@2.13.4
+        run: npm install -g jshint
 
       - name: Run JSHint
         run: |
