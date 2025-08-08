@@ -17,18 +17,17 @@ def get_request(endpoint, **kwargs):
     params = ""
     if kwargs:
         for key, value in kwargs.items():
-            params = params + key + "=" + value + "&"
-
+            params += f"{key}={value}&"
     request_url = backend_url + endpoint + "?" + params
 
-    print("GET from {} ".format(request_url))
+    print(f"GET from {request_url}")
     try:
-        # Call get method of requests library with URL and parameters
         response = requests.get(request_url)
+        response.raise_for_status()
         return response.json()
-    except:
-        # If any error occurs
-        print("Network exception occurred")
+    except requests.exceptions.RequestException as e:
+        print(f"Network exception occurred: {e}")
+        return None
 
 
 # Add code for get requests to back end
