@@ -1,7 +1,7 @@
 {
   "esversion": 8,
   "asi": true,
-  "quotmark": "single",
+  "quotmark": 1,
   "sub": true,
   "node": true
 }
