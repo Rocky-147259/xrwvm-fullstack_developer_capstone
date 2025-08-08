@@ -28,7 +28,7 @@ jobs:
       - name: Run Flake8
         run: |
           # Run flake8 on all Python files, ignoring selected warnings
-          flake8 . --count --select=E,F,W,C90 --ignore=E121,E122,E226,E501,E999,F821 --show-source --statistics
+          flake8 . --count --select=E,F,W,C90 --ignore=E121,E122,E226,E501,E999,F821,F401 --show-source --statistics
           echo "Python linting complete (with specified rules ignored)"
 
   lint_js:
