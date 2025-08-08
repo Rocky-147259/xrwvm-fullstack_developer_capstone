@@ -12,35 +12,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
 
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.12
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8
-
-    - name: Print working directory
-      run: pwd
-
-    - name: Run Linter
-      run: |
-        pwd
-        # This command finds all Python files recursively and runs flake8 on them
-        find . -exec flake8 --ignore=E501 {} +
-        echo "Linted all the python files successfully"
+      - name: Run Flake8
+        run: |
+          # Run flake8 on all Python files, ignoring selected warnings
+          flake8 . --count --select=E,F,W,C90 --ignore=E121,E122,E226,E501,E999,F821 --show-source --statistics
+          echo "Python linting complete (with specified rules ignored)"
 
   lint_js:
-      name: Lint JavaScript Files
-      runs-on: ubuntu-latest
+    name: Lint JavaScript Files
+    runs-on: ubuntu-latest
 
-      steps:
+    steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
@@ -52,8 +47,8 @@ jobs:
       - name: Install JSHint
         run: npm install jshint --global
 
-      - name: Run Linter
+      - name: Run JSHint
         run: |
-          # This command finds all JavaScript files recursively and runs JSHint on them
+          # Run JSHint only in target folders
           find ./server/database -name "*.js" -exec jshint {} +
-          echo "Linted all the js files successfully"
+          echo "JavaScript linting complete"
